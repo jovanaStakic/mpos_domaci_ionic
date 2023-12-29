@@ -1,0 +1,22 @@
+<ion-img src="../assets/header.png" alt="header"></ion-img>
+
+
+<ion-content class="ion-padding">
+<h1>Prijavi se/Registruj se</h1>
+<br><br>
+<!--[formGroup]="credentials"-->
+<form [formGroup]="credentials" (ngSubmit)="login()" >
+
+  <ion-item fill="solid" class="ion-margin-bottom">
+    <ion-input type="email"  placeholder="Email" formControlName="email"></ion-input>
+  
+  </ion-item>
+  <ion-item fill="solid" class="ion-margin-bottom">
+    <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+  
+  </ion-item>
+
+<ion-button expand="block" fill="outline" type="submit"><ion-icon name="push-outline"></ion-icon>Prijavi se</ion-button>
+<ion-button expand="block" type="button" (click)="register()"><ion-icon name="person-add-outline"></ion-icon>Registruj se</ion-button>
+</form>
+</ion-content>
