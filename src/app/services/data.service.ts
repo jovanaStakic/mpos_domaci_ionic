@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {collection, Firestore, collectionData, addDoc, doc, deleteDoc, updateDoc } from '@angular/fire/firestore';
-import { AuthService } from './auth.service';
-import { Auth } from '@firebase/auth';
+import { orderBy, query } from 'firebase/firestore';
+import { map } from 'rxjs';
+
 export interface Recepie {
   myId?: number;
   title: string;
@@ -18,8 +19,9 @@ export class DataService {
   constructor(private firestore: Firestore) { }
 
   getRecepies(){
-    const recepies = collection(this.firestore, 'recepies');
-    return collectionData(recepies, { idField: 'myId' });
+    const recepiesRef = collection(this.firestore, 'recepies');
+    const queryRecepies = query(recepiesRef, orderBy("title", "asc"));
+    return collectionData(queryRecepies, { idField: 'myId' });
     
   }
   addRecepie(recepie: Recepie) {
@@ -43,5 +45,13 @@ export class DataService {
        difficulty: recepie.difficulty
    });
   
+  }
+  getRecepiesCount(){
+    const recepiesRef = collection(this.firestore, 'recepies');
+    
+    return collectionData(recepiesRef, { idField: 'myId' })
+      .pipe(
+        map(recepies => recepies.length)
+      );
   }
 }
