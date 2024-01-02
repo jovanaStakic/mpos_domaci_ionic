@@ -23,7 +23,11 @@ const routes: Routes = [
   {
     path: 'lsvra',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  },  {
+    path: 'update',
+    loadChildren: () => import('./update/update.module').then( m => m.UpdatePageModule)
   }
+
 
 ];
 @NgModule({

@@ -1,0 +1,39 @@
+
+
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title color="primary">Izmeni recept</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="dismiss()">Close</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-input [(ngModel)]="recepie.title" placeholder="Izmeni ime jela"></ion-input>
+        </ion-item>
+  
+        <ion-item>
+          <ion-textarea [(ngModel)]="recepie.description" placeholder="Izmeni nacin pripreme"></ion-textarea>
+        </ion-item>
+          <ion-item>
+            <ion-select placeholder="Tezina pripreme" [(ngModel)]="recepie.difficulty">
+              <ion-select-option value="1">Za pocetnike</ion-select-option>
+              <ion-select-option value="2">Lako</ion-select-option>
+              <ion-select-option value="3">Srednje</ion-select-option>
+              <ion-select-option value="4">Tesko</ion-select-option>
+              <ion-select-option value="5">Veoma tesko</ion-select-option>
+              
+            </ion-select>
+          </ion-item>
+   
+        <ion-button expand="block" (click)="updateRecepie()">Izmeni recept</ion-button>
+  
+    
+      </ion-card-content>
+    </ion-card>
+  
+</ion-content>

@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { DataService, Recepie } from '../services/data.service';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { UpdatePage } from '../update/update.page';
 
 
 @Component({
@@ -41,7 +42,13 @@ export class Tab1Page {
     this.isModalUpdateOpen = isOpen;
 
   }
-  
+  async goToUpdatePage(recepie:Recepie) {
+    const modal = await this.modalCtrl.create({
+      component: UpdatePage,
+      componentProps: {recepie},
+    });
+    return await modal.present();
+  }
   
     async getData() {
       this.sub = await this.dataService.getRecepies().subscribe((res) => {
