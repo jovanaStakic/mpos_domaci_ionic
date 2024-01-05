@@ -35,10 +35,6 @@ export class DataService {
     return deleteDoc(recepieRef);
   }
   updateRecepie(recepie: Recepie) {
-    console.log(recepie.myId);
-    console.log(""+recepie.title);
-    console.log(recepie.description);
-    console.log(recepie.difficulty);
     const recepieRef = doc(this.firestore, `recepies/${recepie.myId}`);
      return updateDoc(recepieRef, {
        title: recepie.title,

@@ -26,15 +26,10 @@ export class Tab1Page {
 
   constructor(public modalCtrl: ModalController,
     private dataService: DataService,private authService:AuthService) {}
+    
     ngOnInit() {
       this.userId=this.authService.userId;
-      this.getData();
-      /* this.dataService.getRecepies(this.userId).subscribe(res=>{
-        console.log("My recepies: ",res);
-       
-      }); */
-      
-      
+      this.getData(); 
     }
     
     setAddOpen(isOpen: boolean) {
