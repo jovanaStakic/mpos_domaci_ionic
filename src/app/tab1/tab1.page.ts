@@ -3,6 +3,7 @@ import { DataService, Recepie } from '../services/data.service';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { UpdatePage } from '../update/update.page';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -21,17 +22,18 @@ export class Tab1Page {
   isModalUpdateOpen = false;
   sub!: Subscription;
   recepies: any;
-  
+  userId!:string;
 
   constructor(public modalCtrl: ModalController,
-    private dataService: DataService) {}
+    private dataService: DataService,private authService:AuthService) {}
     ngOnInit() {
-
+      this.userId=this.authService.userId;
       this.getData();
-      this.dataService.getRecepies().subscribe(res=>{
+      /* this.dataService.getRecepies(this.userId).subscribe(res=>{
         console.log("My recepies: ",res);
        
-      });
+      }); */
+      
       
     }
     
@@ -51,7 +53,7 @@ export class Tab1Page {
   }
   
     async getData() {
-      this.sub = await this.dataService.getRecepies().subscribe((res) => {
+      this.sub = await this.dataService.getRecepies(this.userId).subscribe((res) => {
         this.recepies = res;
         console.log(this.recepies);
       });
@@ -62,11 +64,15 @@ export class Tab1Page {
   
   async addRecepie() {
     await this.dataService.addRecepie({
+      userId:this.userId,
       title: this.title,
       date: new Date().toLocaleString(),
       description: this.description,
       difficulty: this.difficulty,
     });
+    this.title = '';
+    this.description = '';
+    this.difficulty = 0;
     this.setAddOpen(false);
   }
   async deleteRecepie(recepie: Recepie) {

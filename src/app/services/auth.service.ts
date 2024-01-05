@@ -6,12 +6,15 @@ import { signOut } from '@firebase/auth';
   providedIn: 'root'
 })
 export class AuthService {
-  email!: string;
+  public email!: string;
+  public userId!:string;
+
   constructor(private auth:Auth) { }
   async register({ email, password }: { email: string, password: string }) {
     try {
       const user =await createUserWithEmailAndPassword(this.auth, email, password);
       this.email=email;
+      this.userId=user.user.uid;
       return user;
     } catch (e) {
       return null; 
@@ -23,7 +26,7 @@ export class AuthService {
     try {
       const user =await signInWithEmailAndPassword(this.auth, email, password);
       this.email=email;
-      
+      this.userId=user.user.uid;
       return user;
     } catch (e) {
       return null; 
@@ -33,6 +36,7 @@ export class AuthService {
 
   logout() {
     this.email='';
+    this.userId='';
     return signOut(this.auth);
    }
 }

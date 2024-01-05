@@ -7,12 +7,12 @@
 <!--[formGroup]="credentials"-->
 <form [formGroup]="credentials" (ngSubmit)="login()" >
 
-  <ion-item fill="solid" class="ion-margin-bottom">
-    <ion-input type="email"  placeholder="Email" formControlName="email"></ion-input>
+  <ion-item  class="ion-margin-bottom">
+    <ion-input type="email" fill="solid" placeholder="Email" formControlName="email"></ion-input>
   
   </ion-item>
-  <ion-item fill="solid" class="ion-margin-bottom">
-    <ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+  <ion-item  class="ion-margin-bottom">
+    <ion-input fill="solid" type="password" placeholder="Password" formControlName="password"></ion-input>
   
   </ion-item>
 

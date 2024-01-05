@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {collection, Firestore, collectionData, addDoc, doc, deleteDoc, updateDoc } from '@angular/fire/firestore';
-import { orderBy, query } from 'firebase/firestore';
+import { orderBy, query, where } from 'firebase/firestore';
 import { map } from 'rxjs';
 
 export interface Recepie {
@@ -9,6 +9,7 @@ export interface Recepie {
   description: string;
   difficulty: number;
   date: string;
+  userId:string;
 }
 
 @Injectable({
@@ -18,9 +19,9 @@ export class DataService {
 
   constructor(private firestore: Firestore) { }
 
-  getRecepies(){
+  getRecepies(userId:string){
     const recepiesRef = collection(this.firestore, 'recepies');
-    const queryRecepies = query(recepiesRef, orderBy("title", "asc"));
+    const queryRecepies = query(recepiesRef, where("userId", "==", userId), orderBy("title", "asc"));
     return collectionData(queryRecepies, { idField: 'myId' });
     
   }
@@ -46,10 +47,10 @@ export class DataService {
    });
   
   }
-  getRecepiesCount(){
+  getRecepiesCount(userId:string){
     const recepiesRef = collection(this.firestore, 'recepies');
-    
-    return collectionData(recepiesRef, { idField: 'myId' })
+    const queryRecepies = query(recepiesRef, where('userId', '==', userId));
+    return collectionData(queryRecepies, { idField: 'myId' })
       .pipe(
         map(recepies => recepies.length)
       );

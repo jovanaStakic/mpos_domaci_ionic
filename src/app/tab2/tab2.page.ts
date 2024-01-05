@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service'; 
 import { Tab1Page } from '../tab1/tab1.page';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DataService } from '../services/data.service';
 
 @Component({
@@ -14,7 +14,8 @@ import { DataService } from '../services/data.service';
 export class Tab2Page {
   email!: string;
   numberOfRecepies!: number;
-  num$=this.dataService.getRecepiesCount();
+  userId!:string;
+  num$!:Observable<number>;
   sub!: Subscription;
  
   constructor(
@@ -23,7 +24,8 @@ export class Tab2Page {
     private dataService:DataService
   ) {}
   ngOnInit() {
- 
+    this.userId=this.authService.userId;
+    this.num$=this.dataService.getRecepiesCount(this.userId);
     this.takeEmail();
   }
   async takeEmail(){

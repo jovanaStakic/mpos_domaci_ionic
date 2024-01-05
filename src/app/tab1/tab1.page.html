@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title color="primary">Moji recepti</ion-title>
+    
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +11,11 @@
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
+  
+  <div class="nodata" *ngIf="recepies?.length === 0">
+  <p color="primary">Jos uvek nema recepata!</p>
+  <ion-icon name="remove-circle-outline"></ion-icon>
+</div>
   <ion-list *ngFor="let recepie of recepies">
     <ion-card>
       <ion-card-header>
