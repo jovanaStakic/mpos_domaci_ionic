@@ -23,14 +23,12 @@
           <ion-card-title color="primary" class="ion-float-left">
             <strong>{{ recepie.title }}</strong>
           </ion-card-title>
-          
           <ion-badge class="ion-float-right" *ngIf="recepie.difficulty == 1" color="light">Za pocetnike</ion-badge>
           <ion-badge class="ion-float-right" *ngIf="recepie.difficulty == 2" color="medium">Lako</ion-badge>
           <ion-badge class="ion-float-right" *ngIf="recepie.difficulty == 3" color="dark">Srednje</ion-badge>
           <ion-badge class="ion-float-right" *ngIf="recepie.difficulty == 4" color="primary">Tesko</ion-badge>
           <ion-badge class="ion-float-right" *ngIf="recepie.difficulty == 5" color="danger">Veoma tesko</ion-badge>
-          
-        </div>
+          </div>
         <br>
         <p>{{ recepie.date }}</p>
       </ion-card-header>
@@ -38,7 +36,10 @@
       <ion-card-content class="description">
         {{ recepie.description }}
       </ion-card-content>
-    
+     
+      <ul class="horizontal-list">
+        <li *ngFor="let ingredient of recepie.ingredients ">{{ ingredient.naziv }}</li>
+      </ul>
       <ion-button fill="clear" (click)="deleteRecepie(recepie)">
         <ion-icon name="trash-outline"></ion-icon>Obrisi
       </ion-button>
@@ -52,7 +53,7 @@
         <ion-toolbar>
           <ion-title color="primary">Dodaj novi recept</ion-title>
           <ion-buttons slot="end">
-            <ion-button (click)="setAddOpen(false)">Close</ion-button>
+            <ion-button (click)="setAddOpen(false)">Zatvori</ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
@@ -63,18 +64,31 @@
               <ion-input [(ngModel)]="title" placeholder="Unesite ime jela"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-textarea [(ngModel)]="description" placeholder="Unesite nacin pripreme"></ion-textarea>
+              <ion-textarea [(ngModel)]="description" placeholder="Unesite način pripreme"></ion-textarea>
             </ion-item>
-                <ion-item>
-              <ion-select placeholder="Tezina pripreme" [(ngModel)]="difficulty">
-                <ion-select-option value="1">Za pocetnike</ion-select-option>
+            <ion-item>
+              <ion-select placeholder="Težina pripreme" [(ngModel)]="difficulty">
+                <ion-select-option value="1">Za početnike</ion-select-option>
                 <ion-select-option value="2">Lako</ion-select-option>
                 <ion-select-option value="3">Srednje</ion-select-option>
-                <ion-select-option value="4">Tesko</ion-select-option>
-                <ion-select-option value="5">Veoma tesko</ion-select-option>
-                
+                <ion-select-option value="4">Teško</ion-select-option>
+                <ion-select-option value="5">Veoma teško</ion-select-option>
               </ion-select>
             </ion-item>
+            <ion-item>
+              
+              <ion-select placeholder="Sastojci" [(ngModel)]="selectedIngredient">
+                <ion-select-option *ngFor="let ingredient of allIngredients" [value]="ingredient">
+                  {{ ingredient.naziv }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-button (click)="addIngredient()">Dodaj Sastojak</ion-button>
+            <ion-list>
+              <ion-item *ngFor="let ingredient of recipeIngredients">
+                {{ ingredient.naziv }}
+              </ion-item>
+            </ion-list>
             <ion-button expand="block" (click)="addRecepie()">Dodaj novi recept</ion-button>
           </ion-card-content>
         </ion-card>

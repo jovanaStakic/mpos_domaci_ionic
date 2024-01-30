@@ -5,3 +5,15 @@
         font-weight: 700;
     
 }
+
+.horizontal-list {
+        list-style: inside disc; 
+        padding: 8;
+        display: flex; 
+        flex-wrap: wrap; 
+        gap: 10px; 
+      }
+      
+.horizontal-list li {
+        flex: 0 1 auto; 
+      }

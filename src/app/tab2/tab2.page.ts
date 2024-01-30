@@ -23,9 +23,9 @@ export class Tab2Page {
     private router: Router,
     private dataService:DataService
   ) {}
-  ngOnInit() {
-    this.userId=this.authService.userId;
-    this.num$=this.dataService.getRecepiesCount(this.userId);
+  ionViewDidEnter() {
+    this.userId = this.authService.userId;
+    this.num$ = this.dataService.getRecepiesCount(this.userId);
     this.takeEmail();
   }
   async takeEmail(){
